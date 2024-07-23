@@ -1,0 +1,33 @@
+% Define the differential equation
+f = @(x, y) x^2 + y;
+
+% Initial condition
+x0 = 0;
+y0 = 1;
+
+% Step size
+h = 0.1;
+
+% Number of steps
+N = 2;
+
+% Initialize arrays to store the results
+x = zeros(1, N+1);
+y = zeros(1, N+1);
+x(1) = x0;
+y(1) = y0;
+
+% Modified Euler's Method (Heun's Method)
+for i = 1:N
+    % Predictor step
+    y_predictor = y(i) + h * f(x(i), y(i));
+    
+    % Corrector step
+    y(i+1) = y(i) + (h/2) * (f(x(i), y(i)) + f(x(i) + h, y_predictor));
+    
+    % Update x
+    x(i+1) = x(i) + h;
+end
+
+% Display the results
+disp(table(x', y', 'VariableNames', {'x', 'y'}));
